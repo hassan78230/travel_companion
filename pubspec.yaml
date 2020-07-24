@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
   cloud_firestore: ^0.13.7
   intl: 0.16.1
+  date_range_picker: ^1.0.5
+  auto_size_text: ^2.1.0
 
 
   # The following adds the Cupertino Icons font to your application.

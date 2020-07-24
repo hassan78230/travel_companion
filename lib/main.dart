@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'file:///C:/Users/HASSAN/AndroidStudioProjects/travel_companion/lib/views/first_view.dart';
 
 import 'home_widget.dart';
 
@@ -15,7 +16,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: Home(),
+      home: FirstView(),
+      routes: <String,WidgetBuilder>{
+        '/signUp': (BuildContext context) => Home(),
+        '/home': (BuildContext context) => Home(),
+      },
     );
   }
 }
