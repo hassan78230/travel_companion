@@ -31,7 +31,7 @@ class AuthService {
   }
 
   // Sign Out
-  signOut() {
+  signOut(){
     return _firebaseAuth.signOut();
   }
 
