@@ -3,22 +3,25 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 class CustomDialog extends StatelessWidget {
   final primaryColor = const Color(0xFF75A2EA);
-  final greyColor = const Color(0xFF939393);
+  final grayColor = const Color(0xFF939393);
+
   final String title,
       description,
       primaryButtonText,
       primaryButtonRoute,
-      secondaryButtonRoute,
-      secondaryButtonText;
+      secondaryButtonText,
+      secondaryButtonRoute;
+
   CustomDialog(
       {@required this.title,
-      @required this.description,
-      @required this.primaryButtonText,
-      @required this.primaryButtonRoute,
-      this.secondaryButtonText,
-      this.secondaryButtonRoute});
+        @required this.description,
+        @required this.primaryButtonText,
+        @required this.primaryButtonRoute,
+        this.secondaryButtonText,
+        this.secondaryButtonRoute});
 
   static const double padding = 20.0;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -36,52 +39,48 @@ class CustomDialog extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black,
-                    blurRadius: 10,
-                    offset: const Offset(0, 10),
+                    blurRadius: 10.0,
+                    offset: const Offset(0.0, 10.0),
                   ),
                 ]),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                SizedBox(
-                  height: 24,
-                ),
+                SizedBox(height: 24.0),
                 AutoSizeText(
                   title,
                   maxLines: 2,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: primaryColor,
-                    fontSize: 25,
+                    fontSize: 25.0,
                   ),
                 ),
-                SizedBox(
-                  height: 24,
-                ),
+                SizedBox(height: 24.0),
                 AutoSizeText(
                   description,
                   maxLines: 4,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: greyColor,
+                    color: grayColor,
                     fontSize: 18.0,
                   ),
                 ),
-                SizedBox(
-                  height: 24,
-                ),
+                SizedBox(height: 24.0),
                 RaisedButton(
                   color: primaryColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0)),
-                  child: AutoSizeText(
-                    primaryButtonText,
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w200,
-                      fontSize: 18.0,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    child: AutoSizeText(
+                      primaryButtonText,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w200,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   onPressed: () {
@@ -90,39 +89,35 @@ class CustomDialog extends StatelessWidget {
                         .pushReplacementNamed(primaryButtonRoute);
                   },
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                showSecondaryButton(context)
+                SizedBox(height: 10.0),
+                showSecondaryButton(context),
               ],
             ),
-          ),
+          )
         ],
       ),
     );
   }
 
   showSecondaryButton(BuildContext context) {
-    if(secondaryButtonRoute != null && secondaryButtonText != null) {
+    if (secondaryButtonRoute != null && secondaryButtonText != null ){
       return FlatButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-          Navigator.of(context)
-              .pushReplacementNamed(secondaryButtonRoute);
-        },
         child: AutoSizeText(
           secondaryButtonText,
           maxLines: 1,
-          textAlign: TextAlign.center,
           style: TextStyle(
+            fontSize: 18,
             color: primaryColor,
             fontWeight: FontWeight.w400,
-            fontSize: 18.0,
           ),
         ),
+        onPressed: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pushReplacementNamed(secondaryButtonRoute);
+        },
       );
-    }else {
-      return SizedBox(height: 10,);
+    } else {
+      return SizedBox(height: 10.0);
     }
   }
 }
