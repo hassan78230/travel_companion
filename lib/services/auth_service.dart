@@ -10,17 +10,21 @@ class AuthService {
   // Email & Password Sign Up
   Future<String> createUserWithEmailAndPassword(
       String email, String password, String name) async {
-    final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
+    final currentUser = (await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
-    );
+    )).user;
 
     // Update the username
+    await updateUsername(name, currentUser);
+    return currentUser.uid;
+  }
+
+  Future updateUsername(String name, FirebaseUser currentUser) async {
     var userUpdateInfo = UserUpdateInfo();
     userUpdateInfo.displayName = name;
-    await authResult.user.updateProfile(userUpdateInfo);
-    await authResult.user.reload();
-    return authResult.user.uid;
+    await currentUser.updateProfile(userUpdateInfo);
+    await currentUser.reload();
   }
 
   // Email & Password Sign In
@@ -37,6 +41,17 @@ class AuthService {
 
   Future sendPasswordResetEmail(String email) {
     return _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
+  Future signInAnonymously(){
+    return _firebaseAuth.signInAnonymously();
+  }
+
+  Future convertUserWithEmail(String email, String password, String name) async {
+    final currentUser = await _firebaseAuth.currentUser();
+    final credential = EmailAuthProvider.getCredential(email: email,password: password);
+    await currentUser.linkWithCredential(credential);
+    await updateUsername(name, currentUser);
   }
 
 }

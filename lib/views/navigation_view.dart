@@ -3,8 +3,8 @@ import 'package:travel_companion/model/Trip.dart';
 import 'package:travel_companion/services/auth_service.dart';
 import 'package:travel_companion/views/new_trips/location_view.dart';
 import 'package:travel_companion/widgets/provider_widget.dart';
-import 'pages.dart';
-import 'views/home_view.dart';
+import '../pages.dart';
+import 'home_view.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -47,6 +47,13 @@ class _HomeState extends State<Home> {
               } catch (e) {
                 print (e);
               }
+            },
+          ),
+          IconButton(
+            padding: EdgeInsets.only(left: 8.0,),
+            icon: Icon(Icons.account_circle),
+            onPressed: (){
+              Navigator.of(context).pushNamed('/convertUser');
             },
           )
 
