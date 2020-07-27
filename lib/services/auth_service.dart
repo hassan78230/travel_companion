@@ -35,6 +35,10 @@ class AuthService {
     return _firebaseAuth.signOut();
   }
 
+  Future sendPasswordResetEmail(String email) {
+    return _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
 }
 
 class EmailValidator{
