@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
           '/anonymousSignIn': (BuildContext context) => SignUpView(authFormType: AuthFormType.anonymous),
           '/convertUser': (BuildContext context) => SignUpView(authFormType: AuthFormType.convert),
         },
+
       ),
     );
   }

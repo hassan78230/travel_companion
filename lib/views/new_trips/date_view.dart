@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -46,6 +47,8 @@ class _NewTripDateViewState extends State<NewTripDateView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            buildSelectedDetails(context, widget.trip),
+            Spacer(),
             Text('Location ${widget.trip.title}'),
             RaisedButton(
               onPressed: () async {
@@ -56,8 +59,10 @@ class _NewTripDateViewState extends State<NewTripDateView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Text('Start date: ${DateFormat('dd/MM/yyyy').format(_startDate).toString()}'),
-                Text('End date: ${DateFormat('dd/MM/yyyy').format(_endDate).toString()}'),
+                Text(
+                    'Start date: ${DateFormat('dd/MM/yyyy').format(_startDate).toString()}'),
+                Text(
+                    'End date: ${DateFormat('dd/MM/yyyy').format(_endDate).toString()}'),
               ],
             ),
             RaisedButton(
@@ -72,8 +77,88 @@ class _NewTripDateViewState extends State<NewTripDateView> {
                         builder: (context) =>
                             NewTripBudgetView(trip: widget.trip)),
                   );
-                })
+                },),
+            Spacer(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildSelectedDetails(BuildContext context, Trip trip) {
+    return Hero(
+      tag: "SelectedTrip-${trip.title}",
+      transitionOnUserGestures: true,
+      child: Container(
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: 8.0,
+            right: 8.0,
+          ),
+          child: SingleChildScrollView(
+            child: Card(
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16, bottom: 30),
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Flexible(
+                                child: AutoSizeText(
+                                  trip.title,
+                                  maxLines: 3,
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                "budget: ",
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                "start date: ",
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                "end Date: ",
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                "travelType: ",
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Placeholder(
+                        fallbackWidth: 100,
+                        fallbackHeight: 100,
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
